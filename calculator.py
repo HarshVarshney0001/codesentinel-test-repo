@@ -14,4 +14,5 @@ def average(numbers):
     return total / len(numbers)
 
 def multiply(a, b):
+    # multiplication function
     return a * b
