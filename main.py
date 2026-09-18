@@ -9,7 +9,7 @@ def main():
 
     print("First task:", todo.get_first_task())
 
-    result = divide(10, 0)  # BUG: will crash, dividing by zero
+    result = divide(10, 0)
     print("Division result:", result)
 
     print("Is valid name:", is_valid_task_name(""))
