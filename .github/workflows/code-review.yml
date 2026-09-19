@@ -1,0 +1,36 @@
+name: CodeSentinel AI Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout CodeSentinel agent code
+        uses: actions/checkout@v4
+        with:
+          repository: HarshVarshney0001/CodeSentinel
+          path: agent
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        working-directory: agent
+        run: |
+          pip install requests python-dotenv anthropic mcp langgraph chromadb sentence-transformers groq einops
+
+      - name: Run CodeSentinel review
+        working-directory: agent
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          python graph_agent.py
