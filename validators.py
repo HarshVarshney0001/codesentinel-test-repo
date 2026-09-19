@@ -9,6 +9,7 @@ def is_valid_priority(priority):
     return False
 
 def is_valid_email(email):
+    # basic length check only
     if len(email) > 5:
         return True
     return False
